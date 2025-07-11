@@ -1,46 +1,104 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Upload } from "lucide-react"
-import { Logo } from "@/components/ui/logo"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, storage } from "@/lib/firebase";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Upload } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
     profilePicture: null as File | null,
     resume: null as File | null,
-  })
+  });
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: "profilePicture" | "resume"
+  ) => {
+    const file = e.target.files?.[0] || null;
+    setFormData((prev) => ({ ...prev, [field]: file }));
+  };
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    // 1. Create user with Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      formData.email,
+      formData.password
+    );
+
+    const user = userCredential.user;
+
+    // 2. Upload profile picture
+    let profilePicURL = "";
+    if (formData.profilePicture) {
+      const profileRef = ref(storage, `users/${user.uid}/profile.jpg`);
+      await uploadBytes(profileRef, formData.profilePicture);
+      profilePicURL = await getDownloadURL(profileRef);
+    }
+
+    // 3. Upload resume
+    let resumeURL = "";
+    if (formData.resume) {
+      const resumeRef = ref(storage, `users/${user.uid}/resume.pdf`);
+      await uploadBytes(resumeRef, formData.resume);
+      resumeURL = await getDownloadURL(resumeRef);
+    }
+
+    // 4. Update Firebase user profile (optional)
+    await updateProfile(user, {
+      displayName: formData.fullName,
+      photoURL: profilePicURL,
+    });
+
+    // 5. (Optional) Send to your backend to create DB user
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${await user.getIdToken()}`,
+      },
+      body: JSON.stringify({
+        uid: user.uid,
+        fullName: formData.fullName,
+        email: formData.email,
+        profilePicURL,
+        resumeURL,
+      }),
+    });
+
+    alert("Account created!");
+    router.push("/dashboard");
+  } catch (err: any) {
+    console.error("Registration failed:", err.message);
+    alert(err.message);
+  } finally {
+    setLoading(false);
   }
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: "profilePicture" | "resume") => {
-    const file = e.target.files?.[0] || null
-    setFormData((prev) => ({ ...prev, [field]: file }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    console.log("Registration data:", formData)
-    setLoading(false)
-  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -58,7 +116,9 @@ export default function RegisterPage() {
           <div className="flex justify-center mb-4">
             <Logo />
           </div>
-          <h1 className="text-xl font-semibold text-white">Practice job interviews with AI</h1>
+          <h1 className="text-xl font-semibold text-white">
+            Practice job interviews with AI
+          </h1>
         </CardHeader>
 
         <CardContent>
@@ -117,7 +177,9 @@ export default function RegisterPage() {
                 <label className="flex items-center justify-center w-full h-12 bg-gray-700/50 border border-gray-600 rounded-md cursor-pointer hover:bg-gray-700/70 transition-colors">
                   <Upload className="w-4 h-4 text-gray-400 mr-2" />
                   <span className="text-gray-400">
-                    {formData.profilePicture ? formData.profilePicture.name : "Upload an image"}
+                    {formData.profilePicture
+                      ? formData.profilePicture.name
+                      : "Upload an image"}
                   </span>
                   <input
                     type="file"
@@ -134,8 +196,15 @@ export default function RegisterPage() {
               <div className="mt-1">
                 <label className="flex items-center justify-center w-full h-12 bg-gray-700/50 border border-gray-600 rounded-md cursor-pointer hover:bg-gray-700/70 transition-colors">
                   <Upload className="w-4 h-4 text-gray-400 mr-2" />
-                  <span className="text-gray-400">{formData.resume ? formData.resume.name : "Upload a pdf"}</span>
-                  <input type="file" accept=".pdf" onChange={(e) => handleFileChange(e, "resume")} className="hidden" />
+                  <span className="text-gray-400">
+                    {formData.resume ? formData.resume.name : "Upload a pdf"}
+                  </span>
+                  <input
+                    type="file"
+                    accept=".pdf"
+                    onChange={(e) => handleFileChange(e, "resume")}
+                    className="hidden"
+                  />
                 </label>
               </div>
             </div>
@@ -151,5 +220,5 @@ export default function RegisterPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
