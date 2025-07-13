@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // ✅ use framer-motion
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
 
-type HoverBorderGradientProps<T extends React.ElementType> = {
+type HoverBorderGradientProps<T extends React.ElementType = "button"> = {
   as?: T;
   containerClassName?: string;
   className?: string;
@@ -51,7 +51,7 @@ export function HoverBorderGradient<T extends React.ElementType = "button">({
   useEffect(() => {
     if (!hovered) {
       const interval = setInterval(() => {
-        setDirection((prevState) => rotateDirection(prevState));
+        setDirection((prev) => rotateDirection(prev));
       }, duration * 1000);
       return () => clearInterval(interval);
     }
@@ -77,6 +77,7 @@ export function HoverBorderGradient<T extends React.ElementType = "button">({
       >
         {children}
       </div>
+
       <motion.div
         className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
         style={{
@@ -93,6 +94,7 @@ export function HoverBorderGradient<T extends React.ElementType = "button">({
         }}
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
+
       <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]" />
     </>
   );

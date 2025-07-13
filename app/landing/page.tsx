@@ -2,9 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Logo } from "@/components/ui/logo"
-import { Mic, Brain, BarChart3, Users, Star, ArrowRight, Play, Zap, Target, Award } from "lucide-react"
+import { Mic, Brain, BarChart3, Users, Star, ArrowRight, Zap, Target, Award } from "lucide-react"
 import Link from "next/link"
 import Beams from "@/components/ui/beamBg"
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient"
@@ -70,12 +69,12 @@ const testimonials = [
   },
 ]
 
-const stats = [
-  { number: "50K+", label: "Interviews Completed" },
-  { number: "95%", label: "Success Rate" },
-  { number: "500+", label: "Companies Covered" },
-  { number: "4.9/5", label: "User Rating" },
-]
+// const stats = [
+//   { number: "50K+", label: "Interviews Completed" },
+//   { number: "95%", label: "Success Rate" },
+//   { number: "500+", label: "Companies Covered" },
+//   { number: "4.9/5", label: "User Rating" },
+// ]
 
 export default function LandingPage() {
   return (
@@ -289,7 +288,7 @@ export default function LandingPage() {
                       <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-300 mb-6 italic">"{testimonial.content}"</p>
+                  <p className="text-gray-300 mb-6 italic">{testimonial.content}</p>
                   <div>
                     <div className="font-semibold text-white">{testimonial.name}</div>
                     <div className="text-gray-400">

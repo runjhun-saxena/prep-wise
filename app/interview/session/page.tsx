@@ -21,7 +21,6 @@ export default function InterviewSessionPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [isListening, setIsListening] = useState(false)
   const [voiceStatus, setVoiceStatus] = useState<"idle" | "listening" | "transcribing">("idle")
-  const [answers, setAnswers] = useState<string[]>([])
 
   const currentQuestion = mockQuestions[currentQuestionIndex]
   const isLastQuestion = currentQuestionIndex === mockQuestions.length - 1

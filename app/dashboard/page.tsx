@@ -22,11 +22,11 @@ export default function DashboardPage() {
   const [interviewCredits] = useState(1); // Example only
   const [plan] = useState<"free" | "premium">("free");
 
-  const handleViewInterview = (interview: Interview) => {
+  const handleViewInterview = () => {
     router.push("/interview/summary");
   };
 
-  const handleTakeInterview = (interview: Interview) => {
+  const handleTakeInterview = () => {
     router.push("/interview/setup");
   };
 

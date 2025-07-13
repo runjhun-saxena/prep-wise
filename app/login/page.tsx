@@ -37,9 +37,14 @@ export default function LoginPage() {
 
       // Redirect to interview setup or dashboard
       router.push("/interview/setup");
-    } catch (err: any) {
-      console.error("Login failed:", err.message);
-      alert(err.message); // Replace with toast if desired
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error("Login failed:", err.message);
+        alert(err.message); // Replace with toast if desired
+      } else {
+        console.error("Login failed:", err);
+        alert("Login failed. Please try again."); // Fallback message
+      }
     } finally {
       setLoading(false);
     }
