@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-gray-900 min-h-screen`}>
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-blue-900">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 ">
          <AuthProvider>{children}</AuthProvider>
         </div>
       </body>
