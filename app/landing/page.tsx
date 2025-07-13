@@ -6,6 +6,9 @@ import { Badge } from "@/components/ui/badge"
 import { Logo } from "@/components/ui/logo"
 import { Mic, Brain, BarChart3, Users, Star, ArrowRight, Play, Zap, Target, Award } from "lucide-react"
 import Link from "next/link"
+import Beams from "@/components/ui/beamBg"
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient"
+
 
 const features = [
   {
@@ -78,14 +81,20 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-purple-900/20">
       {/* Navigation */}
-      <nav className="border-b border-gray-800/50 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="border-b border-gray-900 bg-black backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Logo />
 
             <div className="flex items-center gap-4">
               <Link href="/login">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white">Login</Button>
+                <HoverBorderGradient
+                  containerClassName="rounded-xl"
+                  className="bg-gradient-to-r from-slate-800 to-black hover:from-purple-900 hover:to-slate-800 text-white px-6 py-2 text-md font-medium transition-all duration-300"
+                  duration={1.5}
+                >
+                  Login
+                </HoverBorderGradient>
               </Link>
             </div>
           </div>
@@ -93,62 +102,100 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/20 rounded-full animate-pulse" />
-          <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-white/30 rounded-full animate-pulse delay-1000" />
-          <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-white/25 rounded-full animate-pulse delay-500" />
-          <div className="absolute top-1/3 left-1/2 w-1 h-1 bg-purple-400/30 rounded-full animate-pulse delay-700" />
-        </div>
+<section className="relative py-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center" style={{ position: 'relative', background: 'linear-gradient(135deg, #0f0f23 0%, #1a0b2e 50%, #16213e 100%)' }}>
+  {/* Beams as background - lowest z-index */}
+  <div className="absolute inset-0 z-0">
+    <Beams
+      beamWidth={2}
+      beamHeight={15}
+      beamNumber={12}
+      lightColor="#ffffff"
+      speed={2}
+      noiseIntensity={1.75}
+      scale={0.2}
+      rotation={10}
+    />
+  </div>
 
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <Badge className="bg-purple-600/20 text-purple-300 border-purple-500/30 mb-6">
-            🚀 AI-Powered Interview Practice
-          </Badge>
+  {/* Enhanced background decoration with glow effects */}
+  <div className="absolute inset-0 overflow-hidden z-10">
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Master Your Next
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
-              {" "}
-              Job Interview
-            </span>
-          </h1>
+    
+    {/* Additional floating elements */}
+    {/* <div className="absolute top-1/6 right-1/6 w-1.5 h-1.5 bg-cyan-300/30 rounded-full animate-pulse delay-300" />
+    <div className="absolute bottom-1/4 left-1/6 w-2 h-2 bg-purple-300/30 rounded-full animate-pulse delay-1200" />
+    <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-blue-300/40 rounded-full animate-pulse delay-800" /> */}
+    
+    {/* Subtle gradient overlays */}
+    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tl from-blue-500/3 via-transparent to-indigo-500/3 pointer-events-none" />
+  </div>
 
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Practice with AI-powered mock interviews tailored to your role. Get instant feedback, improve your skills,
-            and land your dream job with confidence.
-          </p>
+  {/* Main content - highest z-index */}
+  <div className="max-w-7xl mx-auto text-center relative z-20">
+    {/* Enhanced badge with glow effect */}
+    <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 backdrop-blur-sm mb-8 shadow-lg shadow-blue-500/20">
+      <span className="text-cyan-200 font-medium text-lg">AI-Powered Interview Practice</span>
+    </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Link href="/register">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 text-lg">
-                Start Practicing Free
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </Link>
+    {/* Enhanced heading with better gradient and shadow */}
+    <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+      <span className="text-transparent bg-clip-text bg-white drop-shadow-lg">
+        Master Your Next
+      </span>
+      <br />
+      <span className="text-transparent bg-clip-text bg-white drop-shadow-lg">
+        Job Interview
+      </span>
+    </h1>
 
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent px-8 py-3 text-lg"
-            >
-              <Play className="mr-2 w-5 h-5" />
-              Watch Demo
-            </Button>
+    {/* Enhanced description with better contrast */}
+    <p className="text-xl sm:text-2xl text-slate-200 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+      Practice with <span className="text-white font-medium">AI-powered mock interviews</span> tailored to your role. 
+      Get <span className="text-purple-300 font-medium">instant feedback</span>, improve your skills, and land your dream job with confidence.
+    </p>
+
+    {/* Enhanced buttons with glow effects */}
+    <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+      <Link href="/register">
+        <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-500 hover:to-blue-500 text-white px-10 py-4 text-xl font-semibold rounded-full shadow-2xl shadow-cyan-500/30 border-0 transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/40">
+          Start Practicing Free
+          <ArrowRight className="ml-3 w-6 h-6" />
+        </Button>
+      </Link>
+
+      {/* <Button
+        size="lg"
+        variant="outline"
+        className="border-2 border-slate-400/50 text-slate-200 hover:bg-slate-800/50 hover:border-cyan-400/50 hover:text-cyan-200 bg-slate-900/30 backdrop-blur-sm px-10 py-4 text-xl font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-400/20"
+      >
+        <Play className="mr-3 w-6 h-6" />
+        Watch Demo
+      </Button> */}
+    </div>
+
+    {/* Enhanced stats with cards and glow effects */}
+    {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      {stats.map((stat, index) => (
+        <div key={index} className="text-center p-6 rounded-2xl bg-slate-900/40 backdrop-blur-sm border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/20">
+          <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-300 mb-3">
+            {stat.number}
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">{stat.number}</div>
-                <div className="text-gray-400">{stat.label}</div>
-              </div>
-            ))}
+          <div className="text-slate-300 text-lg font-medium">
+            {stat.label}
           </div>
         </div>
-      </section>
+      ))}
+    </div> */}
+  </div>
+
+  {/* Additional ambient lighting effects */}
+  <div className="absolute inset-0 z-5">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl opacity-50 animate-pulse" />
+    <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-2xl opacity-40 animate-pulse delay-1000" />
+    <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl opacity-30 animate-pulse delay-500" />
+  </div>
+</section>
 
       {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
