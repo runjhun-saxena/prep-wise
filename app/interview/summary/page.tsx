@@ -13,9 +13,7 @@ import {
   Share, 
   RotateCcw,
   Loader2,
-  Star,
   TrendingUp,
-  TrendingDown,
   Award,
   Clock,
   MessageSquare
@@ -34,7 +32,6 @@ export default function InterviewSummaryPage() {
     isLoading,
     error,
     getInterview,
-    clearError,
     resetInterview
   } = useInterview()
 

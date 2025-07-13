@@ -92,9 +92,14 @@ const handleSubmit = async (e: React.FormEvent) => {
 
     alert("Account created!");
     router.push("/dashboard");
-  } catch (err: any) {
-    console.error("Registration failed:", err.message);
-    alert(err.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error("Registration failed:", err.message);
+      alert(err.message);
+    } else {
+      console.error("Registration failed:", err);
+      alert("An unknown error occurred.");
+    }
   } finally {
     setLoading(false);
   }

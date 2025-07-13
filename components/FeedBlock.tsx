@@ -6,7 +6,7 @@ interface FeedbackBlockProps {
 }
 
 export function FeedbackBlock({ category }: FeedbackBlockProps) {
-  const percentage = (category.score / category.maxScore) * 100
+  // const percentage = (category.score / category.maxScore) * 100
 
   return (
     <Card className="bg-gray-800/50 border-gray-700">
