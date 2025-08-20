@@ -42,39 +42,6 @@ const features = [
   },
 ]
 
-const testimonials = [
-  {
-    name: "Sarah Chen",
-    role: "Frontend Developer",
-    company: "Google",
-    content:
-      "PrepWise helped me land my dream job at Google. The AI feedback was incredibly detailed and helped me improve my communication skills.",
-    rating: 5,
-  },
-  {
-    name: "Michael Rodriguez",
-    role: "Full-Stack Engineer",
-    company: "Microsoft",
-    content:
-      "The technical interviews were spot-on. I felt completely prepared for my Microsoft interview after practicing here.",
-    rating: 5,
-  },
-  {
-    name: "Emily Johnson",
-    role: "DevOps Engineer",
-    company: "Amazon",
-    content:
-      "Amazing platform! The variety of interview types and the quality of feedback is unmatched. Highly recommend!",
-    rating: 5,
-  },
-]
-
-// const stats = [
-//   { number: "50K+", label: "Interviews Completed" },
-//   { number: "95%", label: "Success Rate" },
-//   { number: "500+", label: "Companies Covered" },
-//   { number: "4.9/5", label: "User Rating" },
-// ]
 
 export default function LandingPage() {
   return (
@@ -120,11 +87,8 @@ export default function LandingPage() {
   <div className="absolute inset-0 overflow-hidden z-10">
 
     
-    {/* Additional floating elements */}
-    {/* <div className="absolute top-1/6 right-1/6 w-1.5 h-1.5 bg-cyan-300/30 rounded-full animate-pulse delay-300" />
-    <div className="absolute bottom-1/4 left-1/6 w-2 h-2 bg-purple-300/30 rounded-full animate-pulse delay-1200" />
-    <div className="absolute top-2/3 left-1/3 w-1 h-1 bg-blue-300/40 rounded-full animate-pulse delay-800" /> */}
-    
+
+
     {/* Subtle gradient overlays */}
     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 pointer-events-none" />
     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tl from-blue-500/3 via-transparent to-indigo-500/3 pointer-events-none" />
@@ -132,10 +96,7 @@ export default function LandingPage() {
 
   {/* Main content - highest z-index */}
   <div className="max-w-7xl mx-auto text-center relative z-20">
-    {/* Enhanced badge with glow effect */}
-    <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 backdrop-blur-sm mb-8 shadow-lg shadow-blue-500/20">
-      <span className="text-cyan-200 font-medium text-lg">AI-Powered Interview Practice</span>
-    </div>
+
 
     {/* Enhanced heading with better gradient and shadow */}
     <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
@@ -157,35 +118,16 @@ export default function LandingPage() {
     {/* Enhanced buttons with glow effects */}
     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
       <Link href="/register">
-        <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-500 hover:to-blue-500 text-white px-10 py-4 text-xl font-semibold rounded-full shadow-2xl shadow-cyan-500/30 border-0 transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/40">
+        <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-500 hover:to-blue-500 text-white px-8 py-6 text-xl font-semibold rounded-xl shadow-2xl shadow-cyan-500/30 border-0 transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/40">
           Start Practicing Free
           <ArrowRight className="ml-3 w-6 h-6" />
         </Button>
       </Link>
 
-      {/* <Button
-        size="lg"
-        variant="outline"
-        className="border-2 border-slate-400/50 text-slate-200 hover:bg-slate-800/50 hover:border-cyan-400/50 hover:text-cyan-200 bg-slate-900/30 backdrop-blur-sm px-10 py-4 text-xl font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-400/20"
-      >
-        <Play className="mr-3 w-6 h-6" />
-        Watch Demo
-      </Button> */}
+
     </div>
 
-    {/* Enhanced stats with cards and glow effects */}
-    {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-      {stats.map((stat, index) => (
-        <div key={index} className="text-center p-6 rounded-2xl bg-slate-900/40 backdrop-blur-sm border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/20">
-          <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-300 mb-3">
-            {stat.number}
-          </div>
-          <div className="text-slate-300 text-lg font-medium">
-            {stat.label}
-          </div>
-        </div>
-      ))}
-    </div> */}
+
   </div>
 
   {/* Additional ambient lighting effects */}
@@ -271,41 +213,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Success Stories</h2>
-            <p className="text-xl text-gray-400">Join thousands of developers who landed their dream jobs</p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-gray-800/50 border-gray-700">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-300 mb-6 italic">{testimonial.content}</p>
-                  <div>
-                    <div className="font-semibold text-white">{testimonial.name}</div>
-                    <div className="text-gray-400">
-                      {testimonial.role} at {testimonial.company}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-600/20 to-purple-800/20">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-600 to-purple-800/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Ready to Ace Your Next Interview?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Want to Ace Your Next Interview?</h2>
           <p className="text-xl text-gray-300 mb-8">
             Join thousands of developers who have successfully landed their dream jobs with PrepWise.
           </p>
@@ -321,7 +234,7 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent px-8 py-3 text-lg"
+                className="border-gray-600 text-white hover:bg-white hover:text-purple-700 bg-transparent px-8 py-3 text-lg"
               >
                 View Pricing
               </Button>

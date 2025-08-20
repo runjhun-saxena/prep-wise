@@ -36,7 +36,7 @@ export default function LoginPage() {
       console.log("User signed in:", user);
 
       // Redirect to interview setup or dashboard
-      router.push("/interview/setup");
+      router.push("/dashboard");
     } catch (err) {
       if (err instanceof Error) {
         console.error("Login failed:", err.message);

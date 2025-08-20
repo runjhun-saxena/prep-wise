@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -30,13 +29,6 @@ export default function RegisterPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: "profilePicture" | "resume"
-  ) => {
-    const file = e.target.files?.[0] || null;
-    setFormData((prev) => ({ ...prev, [field]: file }));
-  };
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -176,43 +168,6 @@ const handleSubmit = async (e: React.FormEvent) => {
               />
             </div>
 
-            <div>
-              <Label className="text-gray-300">Profile picture</Label>
-              <div className="mt-1">
-                <label className="flex items-center justify-center w-full h-12 bg-gray-700/50 border border-gray-600 rounded-md cursor-pointer hover:bg-gray-700/70 transition-colors">
-                  <Upload className="w-4 h-4 text-gray-400 mr-2" />
-                  <span className="text-gray-400">
-                    {formData.profilePicture
-                      ? formData.profilePicture.name
-                      : "Upload an image"}
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleFileChange(e, "profilePicture")}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <Label className="text-gray-300">Resume</Label>
-              <div className="mt-1">
-                <label className="flex items-center justify-center w-full h-12 bg-gray-700/50 border border-gray-600 rounded-md cursor-pointer hover:bg-gray-700/70 transition-colors">
-                  <Upload className="w-4 h-4 text-gray-400 mr-2" />
-                  <span className="text-gray-400">
-                    {formData.resume ? formData.resume.name : "Upload a pdf"}
-                  </span>
-                  <input
-                    type="file"
-                    accept=".pdf"
-                    onChange={(e) => handleFileChange(e, "resume")}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-            </div>
 
             <Button
               type="submit"
